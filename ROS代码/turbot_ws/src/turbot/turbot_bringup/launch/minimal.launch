@@ -1,0 +1,4 @@
+<launch>
+<!-- turtlebot2的驱动文件,必须执行 -->
+<include file="$(find turtlebot_bringup)/launch/minimal.launch" />
+</launch>

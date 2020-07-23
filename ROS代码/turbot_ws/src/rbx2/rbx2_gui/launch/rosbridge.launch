@@ -1,0 +1,22 @@
+<launch>
+
+  <rosparam ns="/robot_gui">
+     maxLinearSpeed: 0.5
+     maxAngularSpeed: 2.0
+     videoTopic: /camera/rgb/image_raw
+  </rosparam>
+   <!-- 设置IP网址打开的起始目录指向,这里是rbx2_gui/ -->
+  <node name="mini_httpd" pkg="rbx2_gui" type="mini-httpd.sh" output="screen" />
+   <!-- 在8080端口打开可以看到视频流 -->
+  <node name="web_video_server" pkg="web_video_server" type="web_video_server" output="screen">
+     <param name="port" value="8080" />
+  </node>
+
+   <!-- 会发布创建二维导航地图的tf信息 -->
+  <node name="robot_pose_publisher" pkg="robot_pose_publisher" type="robot_pose_publisher" output="screen" />
+  <!-- ROS与浏览器交互部分的重要依赖节点 -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+  
+  <!-- <include file="$(find rbx2_bringup)/launch/laptop_battery.launch" /> -->
+
+</launch>
